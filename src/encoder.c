@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "raylib.h"
+const int line_width = 10;  // TEMP
 
 char *remove_extension(char *file_name) {
     if (file_name == NULL) return NULL;
@@ -17,7 +18,6 @@ char *remove_extension(char *file_name) {
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
-        // return -1;
         exit(1);
     }
     char *input_file = argv[1];
@@ -29,8 +29,7 @@ int main(int argc, char *argv[]) {
     if (img.data == NULL) {
         exit(1);
     }
-    FILE     *write_ptr = fopen(output_file, "wb");
-    const int line_width = 10;  // TEMP
+    FILE *write_ptr = fopen(output_file, "wb");
 
     // TODO! Write metadata
 
