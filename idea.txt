@@ -33,6 +33,7 @@ COLOR ENCODING:
 FUNCTIONS:
 ---------------------------------------------------------------------------------
 Color GetImageColor(Image image, int x, int y); // Get image pixel color at (x, y) position
+Image LoadImage(const char *fileName); // Load image from file into CPU memory (RAM)
 ---------------------------------------------------------------------------------
 
 

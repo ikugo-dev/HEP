@@ -1,44 +1,31 @@
-CXX = g++
-CXXFLAGS += -I./lib
+# WARNING: if you are on windows, you need to have g++ installed with MinGW
+
+CXX = gcc
+# CXXFLAGS += -I./include
 # CXXFLAGS += -v
-LDFLAGS += -L./lib
-NO_WARN_FLAGS = -w
+LDFLAGS += -L./lib -nostdlib
 
-SRC = $(wildcard src/*.cpp)
-OBJ_DIR = obj
-OBJ = $(patsubst src/%.cpp,$(OBJ_DIR)/%.o,$(SRC))
-OUT = output
+SRC_FILES := $(wildcard src/*.c)
+OUT_FILES := $(patsubst src/%.c, bin/%, $(SRC_FILES))
+
 EXT =
-
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S), Linux)
-    LIBS = -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+    LIBS = -L./lib -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 endif
 ifeq ($(UNAME_S), Darwin)
-    LIBS = -lraylib -framework OpenGL
+    LIBS = -L./lib -lraylib -framework OpenGL
 endif
-# Windows platform; assumes MinGW
 ifeq ($(OS), Windows_NT)
-    LIBS = -lraylib -lopengl32 -lgdi32
+    LIBS = -L./lib -lraylib -lopengl32 -lgdi32
     EXT = .exe
 endif
 
+bin/%: src/%.c
+	@mkdir -p bin
+	$(CXX) $< -o $@$(EXT) $(CXXFLAGS) $(LIBS)
 
-# Build target
-$(OUT)$(EXT): $(OBJ)
-	$(CXX) $(OBJ) -o $(OUT)$(EXT) $(CXXFLAGS) $(LIBS)
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+all: $(OUT_FILES)
 
-# Ignoring buggy dependancy
-$(OBJ_DIR)/%.o: src/%.cpp | $(OBJ_DIR)
-	if grep -q "raygui.h" $<; then \
-		$(CXX) -c $< -o $@ $(CXXFLAGS) $(NO_WARN_FLAGS); \
-	else \
-		$(CXX) -c $< -o $@ $(CXXFLAGS); \
-	fi
-
-# Clean target
 clean:
-	rm -rf $(OBJ_DIR) $(OUT)$(EXT)
-
+	rm -rf bin/
