@@ -1,0 +1,46 @@
+IDEA:
+---------------------------------------------------------------------------------
+Custom (.hep) Image Format:
+
+Horizontal Extended Pictures (TM): where the compression is done horizontally by
+storing n pixels at a time.
+
+Napravis program koji pretvara sliku iz nekog formata (.jpg, .png, .tif...) i
+pretvara u .hep fajl.
+Mora da ima svoj metadata za velicinu i jacinu kompresije,
+i MORAM DA OTKRIJEM najefikasniji nacin da prikazem pikseli na ekran;
+to me najvise muci.
+---------------------------------------------------------------------------------
+
+METADATA:
+---------------------------------------------------------------------------------
+- Width
+- Height
+- Compression size (aka. line width (MUST BE DIVISIBLE BY WIDTH!!!))
+- Image name
+
++ Date created
++ ...
+---------------------------------------------------------------------------------
+
+COLOR ENCODING:
+---------------------------------------------------------------------------------
+- 24bits per color encoding
+- 32bits if we want to support transparency
+---------------------------------------------------------------------------------
+
+
+FUNCTIONS:
+---------------------------------------------------------------------------------
+Color GetImageColor(Image image, int x, int y); // Get image pixel color at (x, y) position
+---------------------------------------------------------------------------------
+
+
+ACTIVITY DIAGRAM:
+---------------------------------------------------------------------------------
+-> Load an image
+-> Collect the image data
+-> Compress it by taking average value of RGB (or whatevs format) of next line width pixels
+-> Save that data to .hef
+-> View image using custom image viewer (as a binary)
+---------------------------------------------------------------------------------
