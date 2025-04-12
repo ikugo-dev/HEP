@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 
     for (int y = 0; y < img.height; y++) {
         for (int x = 0; x < (img.width - line_width); x++) {
-            unsigned int total_r, total_g, total_b, total_a;
+            unsigned int total_r = 0, total_g = 0, total_b = 0, total_a = 0;
             for (int i = 0; i < line_width; i++) {
                 Color c = GetImageColor(img, x, y);
                 total_r += c.r;
