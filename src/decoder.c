@@ -61,6 +61,7 @@ void renderImage(FILE *img, const char *img_name) {
     readMetadata(img, &img_width, &img_height, &line_width);
 
     InitWindow(img_width, img_height, img_name);
+    SetWindowPosition(200, 300);
     BeginDrawing();
     drawPixels(img, img_width, img_height, line_width);
     EndDrawing();
