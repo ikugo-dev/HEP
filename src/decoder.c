@@ -2,9 +2,6 @@
 #include <stdlib.h>
 
 #include "raylib.h"
-const int line_width = 10;  // TEMP
-const int img_width = 320;
-const int img_height = 240;
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
@@ -15,10 +12,13 @@ int main(int argc, char *argv[]) {
 
     FILE *read_ptr = fopen(input_file, "rb");
 
-    const int screenWidth = 800;
-    const int screenHeight = 800;
-    InitWindow(screenWidth, screenHeight, "WINDOW");
+    unsigned short metadata[3];
+    fread(metadata, sizeof(metadata), 1, read_ptr);
+    unsigned short img_width = metadata[0];
+    unsigned short img_height = metadata[1];
+    unsigned short line_width = metadata[2];
 
+    InitWindow(img_width, img_height, "WINDOW");
     BeginDrawing();
     ClearBackground(RAYWHITE);
     for (int y = 0; y < img_height; y++) {

@@ -30,10 +30,13 @@ int main(int argc, char *argv[]) {
     }
     FILE *write_ptr = fopen(output_file, "wb");
 
-    // TODO! Write metadata
-    const int line_width = 10;  // TEMP
-    const int img_width = 320;
-    const int img_height = 240;
+    int            line_width = 10;  // temp
+    unsigned short metadata[3] = {
+        img.width,
+        img.height,
+        line_width,
+    };
+    fwrite(metadata, sizeof(metadata), 1, write_ptr);
 
     for (int y = 0; y < img.height; y++) {
         for (int x = 0; x <= (img.width - line_width); x += line_width) {
