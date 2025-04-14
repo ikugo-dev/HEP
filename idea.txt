@@ -17,7 +17,6 @@ METADATA:
 - Width
 - Height
 - Compression size (aka. line width (MUST BE DIVISIBLE BY WIDTH!!!))
-- Image name
 
 + Date created
 + ...

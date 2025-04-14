@@ -19,28 +19,29 @@ int main(int argc, char *argv[]) {
     const int screenHeight = 800;
     InitWindow(screenWidth, screenHeight, "WINDOW");
 
-    BeginDrawing();  // dont need??
+    BeginDrawing();
     ClearBackground(RAYWHITE);
     for (int y = 0; y < img_height; y++) {
         for (int x = 0; x < img_width; x += line_width) {
-            unsigned char read_buffer[4];
+            unsigned char read_buffer[3];
             fread(read_buffer, sizeof(read_buffer), 1, read_ptr);
             Color c = {
                 .r = read_buffer[0],
                 .g = read_buffer[1],
                 .b = read_buffer[2],
-                .a = read_buffer[3],
+                .a = 255,
             };
             DrawLine(x, y, x + line_width, y, c);
         }
     }
-    EndDrawing();  // dont need??
+    EndDrawing();
+
+    fclose(read_ptr);
 
     while (!WindowShouldClose()) {
         WaitTime(1);
     }
     CloseWindow();
 
-    fclose(read_ptr);
     return 0;
 }

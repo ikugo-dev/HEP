@@ -3,7 +3,6 @@
 #include <string.h>
 
 #include "raylib.h"
-const int line_width = 10;  // TEMP
 
 char *remove_extension(char *file_name) {
     if (file_name == NULL) return NULL;
@@ -32,23 +31,23 @@ int main(int argc, char *argv[]) {
     FILE *write_ptr = fopen(output_file, "wb");
 
     // TODO! Write metadata
+    const int line_width = 10;  // TEMP
+    const int img_width = 320;
+    const int img_height = 240;
 
     for (int y = 0; y < img.height; y++) {
-        for (int x = 0; x < (img.width - line_width); x++) {
-            unsigned int total_r = 0, total_g = 0, total_b = 0, total_a = 0;
+        for (int x = 0; x <= (img.width - line_width); x += line_width) {
+            unsigned int total_r = 0, total_g = 0, total_b = 0;
             for (int i = 0; i < line_width; i++) {
-                Color c = GetImageColor(img, x, y);
+                Color c = GetImageColor(img, x + i, y);
                 total_r += c.r;
                 total_g += c.g;
                 total_b += c.b;
-                total_a += c.a;
-                x++;
             }
-            unsigned char new_color[4] = {
+            unsigned char new_color[3] = {
                 total_r / line_width,
                 total_g / line_width,
                 total_b / line_width,
-                total_a / line_width,
             };
             fwrite(new_color, sizeof(new_color), 1, write_ptr);
         }
