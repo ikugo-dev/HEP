@@ -45,5 +45,5 @@ Once you have your '.hep' image ready, you can drag and drop (or use the command
 Closing the file is currently buggy for some reason, so if 'Q' or 'ESC' don't work, then just 'Ctrl+C' in the command line.
 
 ## Upcoming features:
-[ ] Zooming
-[ ] Saving back to .png
+- [ ] Zooming
+- [ ] Saving back to .png
