@@ -16,7 +16,7 @@ char *remove_extension(char *file_name) {
 }
 
 int main(int argc, char *argv[]) {
-    if (argc != 2) {
+    if (argc != 3) {
         exit(1);
     }
     char *input_file = argv[1];
@@ -30,7 +30,15 @@ int main(int argc, char *argv[]) {
     }
     FILE *write_ptr = fopen(output_file, "wb");
 
-    int            line_width = 10;  // temp
+    int line_width = 1;
+    int compression_rate = atoi(argv[2]);
+    for (; line_width < img.width && compression_rate > 0; line_width++) {
+        if (img.width % line_width == 0) {
+            compression_rate--;
+        }
+    }
+    line_width--;
+
     unsigned short metadata[3] = {
         img.width,
         img.height,
