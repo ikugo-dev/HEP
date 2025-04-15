@@ -6,6 +6,8 @@ Horizontally Extended Picture (HEP) is an image format implemented entirely usin
 
 This is not inteded to be used as a serious image format as it doesn't have any upsides when compared to other formats, however, it does create some pretty interesting looking images.
 
+<img src="./comparison.png" align="center" alt="comparison of .png vs .hep image" width="800"/>
+
 Viewing the image can only be done using the 'decoder' binary.
 
 
