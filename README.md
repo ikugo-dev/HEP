@@ -34,15 +34,12 @@ Once compiled, drag and drop any image you want to convert to '.hep' into the 'e
 
 You can also use the command line to specify the exact compression size as such
 ```bash
-   ./encoder <file name> <compression rate>
+./encoder <file name> <compression rate>
 ```
 where the compression rate can be anything above 1.
 
 ### Decoding
 Once you have your '.hep' image ready, you can drag and drop (or use the command line) your '.hep' file over the 'decoder' (or 'decoder.exe') file in order to view it.
-
-### ⚠️ **Warning**
-Closing the file is currently buggy for some reason, so if 'Q' or 'ESC' don't work, then just 'Ctrl+C' in the command line.
 
 ## Upcoming features:
 - [ ] Zooming

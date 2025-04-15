@@ -43,17 +43,6 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-char *remove_extension(char *file_name) {
-    if (file_name == NULL) return NULL;
-    char *file_base = malloc(strlen(file_name) + 1);
-    if (file_base == NULL) return NULL;
-    strcpy(file_base, file_name);
-
-    char *dot_position = strrchr(file_base, '.');
-    if (dot_position != NULL) *dot_position = '\0';
-    return file_base;
-}
-
 int findLineWidth(Image *img, int compression_rate) {
     if (compression_rate < 0) {
         return 1;
@@ -98,4 +87,15 @@ void writeMetadata(FILE *write_ptr, Image *img, int line_width) {
         line_width,
     };
     fwrite(metadata, sizeof(metadata), 1, write_ptr);
+}
+
+char *remove_extension(char *file_name) {
+    if (file_name == NULL) return NULL;
+    char *file_base = malloc(strlen(file_name) + 1);
+    if (file_base == NULL) return NULL;
+    strcpy(file_base, file_name);
+
+    char *dot_position = strrchr(file_base, '.');
+    if (dot_position != NULL) *dot_position = '\0';
+    return file_base;
 }
