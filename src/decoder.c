@@ -39,7 +39,6 @@ int main(int argc, char *argv[]) {
     SetTargetFPS(1);
     SetWindowPosition(200, 300);
 
-    // SetExitKey(KEY_ESCAPE);
     float zoom = 1;
     while (!WindowShouldClose()) {
         renderImage(color_data, img_width, img_height, line_width, zoom);
@@ -63,10 +62,10 @@ int main(int argc, char *argv[]) {
 void renderImage(unsigned char *color_data, int img_width, int img_height,
                  int line_width, int zoom) {
     // static int previous_zoom;
-    // if (previous_zoom == img_width) {
+    // if (previous_zoom == zoom) {
     //     return;
     // }
-    // previous_zoom = img_width;
+    // previous_zoom = zoom;
 
     img_width *= zoom;
     img_height *= zoom;
