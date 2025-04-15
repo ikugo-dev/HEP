@@ -8,7 +8,7 @@ char *remove_extension(char *file_name);
 void  readMetadata(FILE *read_ptr, unsigned short *img_width,
                    unsigned short *img_height, unsigned short *line_width);
 void  renderImage(unsigned char *color_data, int img_width, int img_height,
-                  int line_width);
+                  int line_width, int zoom);
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
@@ -42,8 +42,7 @@ int main(int argc, char *argv[]) {
     // SetExitKey(KEY_ESCAPE);
     float zoom = 1;
     while (!WindowShouldClose()) {
-        renderImage(color_data, img_width * zoom, img_height * zoom,
-                    line_width * zoom);
+        renderImage(color_data, img_width, img_height, line_width, zoom);
         if (IsKeyPressed(KEY_LEFT_BRACKET)) {
             zoom /= 2;
         } else if (IsKeyPressed(KEY_RIGHT_BRACKET)) {
@@ -62,13 +61,18 @@ int main(int argc, char *argv[]) {
 }
 
 void renderImage(unsigned char *color_data, int img_width, int img_height,
-                 int line_width) {
-    // static int previous_width;
-    // if (previous_width == img_width) {
+                 int line_width, int zoom) {
+    // static int previous_zoom;
+    // if (previous_zoom == img_width) {
     //     return;
     // }
-    // previous_width = img_width;
+    // previous_zoom = img_width;
+
+    img_width *= zoom;
+    img_height *= zoom;
+    line_width *= zoom;
     SetWindowSize(img_width, img_height);
+
     BeginDrawing();
     ClearBackground(RAYWHITE);
     for (int y = 0; y < img_height; y++) {
@@ -79,7 +83,8 @@ void renderImage(unsigned char *color_data, int img_width, int img_height,
                 .b = color_data[(x + (y * img_width)) / line_width * 3 + 2],
                 .a = 255,
             };
-            DrawLine(x, y, x + line_width, y, c);
+            DrawLineEx((Vector2){x, y * zoom},
+                       (Vector2){x + line_width, y * zoom}, zoom, c);
         }
     }
     EndDrawing();
